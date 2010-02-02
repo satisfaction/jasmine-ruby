@@ -74,7 +74,7 @@ module Jasmine
     def match_files(dir, patterns)
       dir = File.expand_path(dir)
       patterns.collect do |pattern|
-        Dir.glob(File.join(dir, pattern)).collect {|f| f.sub("#{dir}/", "")}.sort
+        Dir.glob(File.join(dir, pattern)).collect {|f| f.sub("#{dir}/", "/")}.sort
       end.flatten
     end
 
@@ -100,11 +100,11 @@ module Jasmine
     end
 
     def js_files
-      src_files.collect {|f| "/" + f } + spec_files.collect {|f| File.join(spec_path, f) }
+      src_files + spec_files.collect {|f| File.join(spec_path, f) }
     end
 
     def css_files
-      stylesheets.collect {|f| "/" + f }
+      stylesheets
     end
 
     def spec_files_full_paths
@@ -136,11 +136,14 @@ module Jasmine
     end
 
     def src_files
-      files = []
       if simple_config['src_files']
-        files = match_files(src_dir, simple_config['src_files'])
+        if simple_config['src_base_url']
+          return simple_config['src_files'].map {|f| File.join(simple_config['src_base_url'], f)}
+        else
+          return match_files(src_dir, simple_config['src_files'])
+        end
       end
-      files
+      return []
     end
 
     def spec_files

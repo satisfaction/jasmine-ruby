@@ -1,6 +1,6 @@
-require 'jasmine/base'
-require 'jasmine/config'
-require 'jasmine/server'
-require 'jasmine/selenium_driver'
+require File.expand_path(File.join(File.dirname(__FILE__), 'jasmine/base'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'jasmine/config'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'jasmine/server'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'jasmine/selenium_driver'))
 
-require 'jasmine/spec_builder'
+require File.expand_path(File.join(File.dirname(__FILE__), 'jasmine/spec_builder'))

@@ -2,4 +2,5 @@
 pkg
 vendor
 bin
+.idea/
 !bin/jasmine
